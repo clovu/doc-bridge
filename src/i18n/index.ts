@@ -1,0 +1,1 @@
+export { availableLocales } from './config'

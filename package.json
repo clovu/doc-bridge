@@ -1,0 +1,66 @@
+{
+  "name": "doc-bridge",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "Automatically translate repository documents and open localized PRs with AI.",
+  "author": "Clover You <hi@clovu.me>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clovu/doc-bridge.git"
+  },
+  "homepage": "https://github.com/clovu/doc-bridge",
+  "bugs": "https://github.com/clovu/doc-bridge/issues",
+  "scripts": {
+    "dev": "next dev",
+    "build": "pnpm type-check && next build",
+    "start": "next start",
+    "lint": "eslint",
+    "fix": "eslint --fix",
+    "type-check": "tsgo --noEmit",
+    "prepare": "simple-git-hooks"
+  },
+  "engines": {
+    "node": ">=23.6.0"
+  },
+  "dependencies": {
+    "@formatjs/intl-localematcher": "^0.8.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "glob": "^13.0.6",
+    "lucide-react": "^0.576.0",
+    "negotiator": "^1.0.0",
+    "next": "16.1.6",
+    "next-intl": "^4.8.3",
+    "next-themes": "^0.4.6",
+    "radix-ui": "^1.4.3",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "shadcn": "^3.8.5",
+    "tailwind-merge": "^3.5.0",
+    "tw-animate-css": "^1.4.0"
+  },
+  "devDependencies": {
+    "@iconify-json/carbon": "^1.2.19",
+    "@iconify/tailwind4": "^1.2.1",
+    "@tailwindcss/postcss": "^4.2.1",
+    "@types/negotiator": "^0.6.4",
+    "@types/node": "^25.3.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@typescript/native-preview": "7.0.0-dev.20260303.1",
+    "@vercel/config": "^0.0.36",
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "^10.0.2",
+    "eslint-config-next": "16.1.6",
+    "eslint-plugin-react-compiler": "19.1.0-rc.2",
+    "lint-staged": "^16.3.1",
+    "simple-git-hooks": "^2.13.1",
+    "tailwindcss": "^4.2.1",
+    "typescript": "^5.9.3"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm type-check && pnpm lint-staged --config lint-staged.config.ts"
+  }
+}
