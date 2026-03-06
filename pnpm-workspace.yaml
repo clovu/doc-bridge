@@ -25,7 +25,6 @@ catalog:
   eslint-config-next: 16.1.6
   eslint-plugin-pnpm: ^1.6.0
   eslint-plugin-react-compiler: 19.1.0-rc.2
-  glob: ^13.0.6
   lint-staged: ^16.3.1
   lucide-react: ^0.576.0
   negotiator: ^1.0.0

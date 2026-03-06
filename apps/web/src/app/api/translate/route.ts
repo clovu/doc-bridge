@@ -81,10 +81,26 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     })
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Translation failed'
-    logger.error('Translation failed', {
+    const errorDetails = {
       error: message,
       isTimeout: /timed out/i.test(message),
-    })
+      stack: err instanceof Error ? err.stack : undefined,
+      provider: providerConfig?.id || 'claude',
+    }
+
+    logger.error('Translation failed', errorDetails)
+
+    // Log to console for immediate debugging
+    console.error('=== Translation Error Details ===')
+    console.error('Error:', message)
+    console.error('Provider:', providerConfig?.id || 'claude')
+    console.error('Files:', files)
+    console.error('Target Locale:', targetLocale)
+    if (err instanceof Error && err.stack) {
+      console.error('Stack:', err.stack)
+    }
+    console.error('================================')
+
     if (/timed out/i.test(message)) {
       return NextResponse.json({ error: message }, { status: 504 })
     }

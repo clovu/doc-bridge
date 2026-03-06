@@ -48,7 +48,7 @@ describe('Translation Count Mismatch', () => {
           sourceLocale: 'en',
           targetLocale: 'es',
         }),
-      ).rejects.toThrow(/expected 2 translations, got 1/)
+      ).rejects.toThrow('Translation failed')
     })
 
     it('throws descriptive error when AI returns more translations than segments', async () => {
@@ -69,7 +69,7 @@ describe('Translation Count Mismatch', () => {
           sourceLocale: 'en',
           targetLocale: 'es',
         }),
-      ).rejects.toThrow(/expected 2 translations, got 3/)
+      ).rejects.toThrow('Translation failed')
     })
 
     it('includes segment information in error for debugging', async () => {
@@ -89,8 +89,8 @@ describe('Translation Count Mismatch', () => {
       } catch (err) {
         expect(err).toBeInstanceOf(Error)
         const error = err as Error
-        // Error should contain useful debugging info
-        expect(error.message).toContain('expected 2 translations, got 1')
+        // Error should be generic for UI
+        expect(error.message).toBe('Translation failed')
       }
     })
 
@@ -107,7 +107,7 @@ describe('Translation Count Mismatch', () => {
           sourceLocale: 'en',
           targetLocale: 'es',
         }),
-      ).rejects.toThrow(/expected 1 translations, got 0/)
+      ).rejects.toThrow('Translation failed')
     })
 
     it('succeeds when translation count matches segment count', async () => {
@@ -159,7 +159,7 @@ describe('Translation Count Mismatch', () => {
           sourceLocale: 'en',
           targetLocale: 'es',
         }),
-      ).rejects.toThrow(/expected 2 translations, got 1/)
+      ).rejects.toThrow('Translation failed')
     })
 
     it('throws descriptive error when AI returns more translations than segments', async () => {
@@ -178,7 +178,7 @@ describe('Translation Count Mismatch', () => {
           sourceLocale: 'en',
           targetLocale: 'es',
         }),
-      ).rejects.toThrow(/expected 2 translations, got 3/)
+      ).rejects.toThrow('Translation failed')
     })
 
     it('handles empty response array', async () => {
@@ -194,7 +194,7 @@ describe('Translation Count Mismatch', () => {
           sourceLocale: 'en',
           targetLocale: 'es',
         }),
-      ).rejects.toThrow(/expected 1 translations, got 0/)
+      ).rejects.toThrow('Translation failed')
     })
 
     it('succeeds when translation count matches segment count', async () => {

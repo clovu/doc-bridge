@@ -134,7 +134,15 @@ export default function PlacementPage() {
   if (isLoading) {
     return (
       <main className="h-screen flex items-center justify-center">
-        <Spinner />
+        <div className="text-center space-y-4">
+          <Spinner className="mx-auto" />
+          <div>
+            <p className="font-medium">Analyzing repository structure...</p>
+            <p className="text-sm text-muted-foreground mt-1">
+              AI is suggesting optimal placement for your translated files
+            </p>
+          </div>
+        </div>
       </main>
     )
   }

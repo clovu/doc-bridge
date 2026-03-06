@@ -91,7 +91,7 @@ describe('ClaudeTranslationProvider', () => {
     const provider = new ClaudeTranslationProvider('test-key')
     await expect(
       provider.translate({ segments: ['Hello'], sourceLocale: 'en', targetLocale: 'es' }),
-    ).rejects.toThrow(/expected 1.*got 2/i)
+    ).rejects.toThrow('Translation failed')
   })
 
   it('passes timeoutMs to Anthropic client constructor', async () => {
@@ -137,6 +137,75 @@ describe('ClaudeTranslationProvider', () => {
     await expect(
       provider.translate({ segments: ['Hello'], sourceLocale: 'en', targetLocale: 'es' }),
     ).rejects.toThrow('Some network error')
+  })
+
+  describe('error message sanitization', () => {
+    it('throws generic "Translation failed" for JSON parsing errors', async () => {
+      mockCreate.mockResolvedValue(makeResponse('<p>Invalid HTML content</p>'))
+      const provider = new ClaudeTranslationProvider('test-key')
+      await expect(
+        provider.translate({ segments: ['Hello'], sourceLocale: 'en', targetLocale: 'es' }),
+      ).rejects.toThrow('Translation failed')
+    })
+
+    it('does not expose internal error details in thrown error', async () => {
+      mockCreate.mockResolvedValue(makeResponse('<html><body>Invalid</body></html>'))
+      const provider = new ClaudeTranslationProvider('test-key')
+      await expect(
+        provider.translate({ segments: ['Hello'], sourceLocale: 'en', targetLocale: 'es' }),
+      ).rejects.toThrow(/^Translation failed$/)
+    })
+
+    it('logs detailed error to console for debugging', async () => {
+      const logs: Array<{ level: string; message: string; data?: unknown }> = []
+      const mockLogger: Logger = {
+        info: (msg, data) => logs.push({ level: 'info', message: msg, data }),
+        error: (msg, data) => logs.push({ level: 'error', message: msg, data }),
+        debug: (msg, data) => logs.push({ level: 'debug', message: msg, data }),
+      }
+
+      const htmlContent = '<p>Invalid HTML</p>'
+      mockCreate.mockResolvedValue(makeResponse(htmlContent))
+      const provider = new ClaudeTranslationProvider('test-key', undefined, mockLogger)
+
+      await expect(
+        provider.translate({ segments: ['Hello'], sourceLocale: 'en', targetLocale: 'es' }),
+      ).rejects.toThrow('Translation failed')
+
+      const errorLog = logs.find(log => log.level === 'error' && log.message.includes('JSON extraction failed'))
+      expect(errorLog).toBeDefined()
+      expect(errorLog?.data).toHaveProperty('textPreview')
+      expect(errorLog?.data).toHaveProperty('error')
+    })
+
+    it('throws generic error for count mismatch', async () => {
+      mockCreate.mockResolvedValue(makeResponse(JSON.stringify(['one', 'two', 'three'])))
+      const provider = new ClaudeTranslationProvider('test-key')
+      await expect(
+        provider.translate({ segments: ['Hello'], sourceLocale: 'en', targetLocale: 'es' }),
+      ).rejects.toThrow('Translation failed')
+    })
+
+    it('logs detailed count mismatch to console', async () => {
+      const logs: Array<{ level: string; message: string; data?: unknown }> = []
+      const mockLogger: Logger = {
+        info: (msg, data) => logs.push({ level: 'info', message: msg, data }),
+        error: (msg, data) => logs.push({ level: 'error', message: msg, data }),
+        debug: (msg, data) => logs.push({ level: 'debug', message: msg, data }),
+      }
+
+      mockCreate.mockResolvedValue(makeResponse(JSON.stringify(['one', 'two'])))
+      const provider = new ClaudeTranslationProvider('test-key', undefined, mockLogger)
+
+      await expect(
+        provider.translate({ segments: ['Hello'], sourceLocale: 'en', targetLocale: 'es' }),
+      ).rejects.toThrow('Translation failed')
+
+      const errorLog = logs.find(log => log.level === 'error' && log.message.includes('count mismatch'))
+      expect(errorLog).toBeDefined()
+      expect(errorLog?.data).toHaveProperty('expected', 1)
+      expect(errorLog?.data).toHaveProperty('received', 2)
+    })
   })
 
   describe('logging', () => {

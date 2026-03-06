@@ -34,6 +34,9 @@ Rules:
 - Do not translate code, variable names, or technical identifiers.
 - Translate only the meaning, nothing else.
 - Return translations as a JSON array of strings in exactly the same order as the input.
+- CRITICAL: The output array MUST have exactly ${segments.length} element${segments.length === 1 ? '' : 's'}, one for each input segment.
+- Do NOT combine multiple segments into one.
+- Do NOT split one segment into multiple.
 - Output only the JSON array, no explanation.`
 
     const userContent = `Translate the following segments:\n${JSON.stringify(segments)}`
@@ -78,9 +81,7 @@ Rules:
         error: err instanceof Error ? err.message : String(err),
         textPreview: text.substring(0, 200),
       })
-      throw new Error(
-        `ClaudeTranslationProvider: ${err instanceof Error ? err.message : String(err)}: ${text.slice(0, 100)}`,
-      )
+      throw new Error('Translation failed')
     }
 
     if (translated.length !== segments.length) {
@@ -93,11 +94,7 @@ Rules:
 
       this.logger?.error('ClaudeTranslationProvider: translation count mismatch', errorDetails)
 
-      throw new Error(
-        `ClaudeTranslationProvider: expected ${segments.length} translations, got ${translated.length}. ` +
-        `Segments: ${JSON.stringify(errorDetails.segments)}. ` +
-        `Translations: ${JSON.stringify(errorDetails.translations)}`,
-      )
+      throw new Error('Translation failed')
     }
 
     this.logger?.info('ClaudeTranslationProvider: response received', {

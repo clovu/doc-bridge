@@ -97,11 +97,15 @@ export default function TranslatePage() {
         body: JSON.stringify({ owner, repo, files: selectedFiles, targetLocale, provider: providerConfig }),
       })
 
-      if (!response.ok) throw new Error('Translation failed')
+      const data = await response.json()
 
-      const data = await response.json() as { results: unknown[] }
+      if (!response.ok) {
+        throw new Error(data.error || 'Translation failed')
+      }
 
-      sessionStorage.setItem('translationResults', JSON.stringify(data.results))
+      const results = data.results as unknown[]
+
+      sessionStorage.setItem('translationResults', JSON.stringify(results))
       sessionStorage.setItem('translationMeta', JSON.stringify({ owner, repo, targetLocale }))
 
       router.push(`/repos/${owner}/${repo}/review`)

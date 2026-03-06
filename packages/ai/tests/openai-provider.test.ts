@@ -125,7 +125,7 @@ describe('OpenAITranslationProvider', () => {
     const provider = new OpenAITranslationProvider('sk-test')
     await expect(
       provider.translate({ segments: ['Hello'], sourceLocale: 'en', targetLocale: 'es' }),
-    ).rejects.toThrow(/expected 1.*got 2/i)
+    ).rejects.toThrow('Translation failed')
   })
 
   it('throws a meaningful error when the API returns an error', async () => {
@@ -317,6 +317,85 @@ describe('OpenAITranslationProvider', () => {
         targetLocale: 'es',
       })
       expect(result.segments).toEqual(['Hola'])
+    })
+  })
+
+  describe('error message sanitization', () => {
+    it('throws generic "Translation failed" for JSON parsing errors', async () => {
+      mockCreate.mockResolvedValue({
+        choices: [{ message: { content: '<p align="center">English | <a href="README.zh-CN.md">中文</a></p>\n\n# Clean Maven Failed' } }],
+      })
+      const provider = new OpenAITranslationProvider('sk-test')
+      await expect(
+        provider.translate({ segments: ['Hello'], sourceLocale: 'en', targetLocale: 'es' }),
+      ).rejects.toThrow('Translation failed')
+    })
+
+    it('does not expose internal error details in thrown error', async () => {
+      mockCreate.mockResolvedValue({
+        choices: [{ message: { content: '<html><body>Invalid response</body></html>' } }],
+      })
+      const provider = new OpenAITranslationProvider('sk-test')
+      await expect(
+        provider.translate({ segments: ['Hello'], sourceLocale: 'en', targetLocale: 'es' }),
+      ).rejects.toThrow(/^Translation failed$/)
+    })
+
+    it('logs detailed error to console for debugging', async () => {
+      const logs: Array<{ level: string; message: string; data?: unknown }> = []
+      const mockLogger: Logger = {
+        info: (msg, data) => logs.push({ level: 'info', message: msg, data }),
+        error: (msg, data) => logs.push({ level: 'error', message: msg, data }),
+        debug: (msg, data) => logs.push({ level: 'debug', message: msg, data }),
+      }
+
+      const htmlContent = '<p align="center">English | <a href="README.zh-CN.md">中文</a></p>'
+      mockCreate.mockResolvedValue({
+        choices: [{ message: { content: htmlContent } }],
+      })
+      const provider = new OpenAITranslationProvider('sk-test', undefined, undefined, undefined, mockLogger)
+
+      await expect(
+        provider.translate({ segments: ['Hello'], sourceLocale: 'en', targetLocale: 'es' }),
+      ).rejects.toThrow('Translation failed')
+
+      const errorLog = logs.find(log => log.level === 'error' && log.message.includes('JSON extraction failed'))
+      expect(errorLog).toBeDefined()
+      expect(errorLog?.data).toHaveProperty('contentPreview')
+      expect(errorLog?.data).toHaveProperty('error')
+    })
+
+    it('throws generic error for count mismatch', async () => {
+      mockCreate.mockResolvedValue({
+        choices: [{ message: { content: JSON.stringify(['one', 'two', 'three']) } }],
+      })
+      const provider = new OpenAITranslationProvider('sk-test')
+      await expect(
+        provider.translate({ segments: ['Hello'], sourceLocale: 'en', targetLocale: 'es' }),
+      ).rejects.toThrow('Translation failed')
+    })
+
+    it('logs detailed count mismatch to console', async () => {
+      const logs: Array<{ level: string; message: string; data?: unknown }> = []
+      const mockLogger: Logger = {
+        info: (msg, data) => logs.push({ level: 'info', message: msg, data }),
+        error: (msg, data) => logs.push({ level: 'error', message: msg, data }),
+        debug: (msg, data) => logs.push({ level: 'debug', message: msg, data }),
+      }
+
+      mockCreate.mockResolvedValue({
+        choices: [{ message: { content: JSON.stringify(['one', 'two']) } }],
+      })
+      const provider = new OpenAITranslationProvider('sk-test', undefined, undefined, undefined, mockLogger)
+
+      await expect(
+        provider.translate({ segments: ['Hello'], sourceLocale: 'en', targetLocale: 'es' }),
+      ).rejects.toThrow('Translation failed')
+
+      const errorLog = logs.find(log => log.level === 'error' && log.message.includes('count mismatch'))
+      expect(errorLog).toBeDefined()
+      expect(errorLog?.data).toHaveProperty('expected', 1)
+      expect(errorLog?.data).toHaveProperty('received', 2)
     })
   })
 
