@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 
 import './globals.css'
-import { ThemeProvider } from '@/components/theme-provider'
-import { NextIntlClientProvider } from 'next-intl'
+import { AppClientProvider } from '@/lib/app-client-provider'
 
 export const metadata: Metadata = {
   title: 'DocBridge',
@@ -18,11 +17,9 @@ export default async function RootLayout({
   return (
     <html suppressHydrationWarning>
       <body>
-        <ThemeProvider enableSystem attribute="class">
-          <NextIntlClientProvider>
-            {children}
-          </NextIntlClientProvider>
-        </ThemeProvider>
+        <AppClientProvider>
+          {children}
+        </AppClientProvider>
       </body>
     </html>
   )
