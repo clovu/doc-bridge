@@ -76,7 +76,7 @@ doc-bridge/
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/yourusername/doc-bridge.git
+git clone https://github.com/clovu/doc-bridge.git
 cd doc-bridge
 ```
 
