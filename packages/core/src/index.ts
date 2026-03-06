@@ -2,3 +2,8 @@ export type { SegmentKind, MarkdownSegment, ParsedDocument, TranslateDocumentOpt
 export { scanMarkdownFiles } from './markdown-scanner'
 export { parseDocument, reassembleDocument } from './markdown-preserver'
 export { translateDocument } from './translate-document'
+export { removeFile } from './file-list'
+export type { Logger, LogLevel, LoggerConfig } from './logger'
+export { createLogger, setGlobalLogger, getLogger } from './logger'
+export type { LoggingConfig } from './logging-config'
+export { configureLogging, isLoggingEnabled } from './logging-config'
