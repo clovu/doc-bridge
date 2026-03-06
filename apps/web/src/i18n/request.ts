@@ -6,7 +6,7 @@ import { getUserLocale } from '@/services/locale'
 export default getRequestConfig(async () => {
   const locale = await getUserLocale()
   const loader = getMessageLoader(locale)
-  const messages = await Promise.try(loader)
+  const messages = await loader()
 
   return {
     locale,
