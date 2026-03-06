@@ -26,8 +26,6 @@ export default function ReviewPage() {
   const [meta, setMeta] = useState<TranslationMeta | null>(null)
   const [activeIndex, setActiveIndex] = useState(0)
   const [editedTranslations, setEditedTranslations] = useState<Record<string, string>>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const raw = sessionStorage.getItem('translationResults')
@@ -38,51 +36,30 @@ export default function ReviewPage() {
     }
     const parsedResults = JSON.parse(raw) as TranslationResult[]
     const parsedMeta = JSON.parse(metaRaw) as TranslationMeta
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setResults(parsedResults)
+
     setMeta(parsedMeta)
     const initial: Record<string, string> = {}
     for (const r of parsedResults) {
       initial[r.translatedPath] = r.translated
     }
+
     setEditedTranslations(initial)
   }, [router])
 
   async function handleSubmit() {
     if (!meta) return
-    setIsSubmitting(true)
-    setError(null)
 
-    try {
-      const files = results.map(r => ({
-        originalPath: r.originalPath,
-        translatedPath: r.translatedPath,
-        content: editedTranslations[r.translatedPath] ?? r.translated,
-      }))
+    // Save edited translations to sessionStorage
+    const updatedResults = results.map(r => ({
+      ...r,
+      translated: editedTranslations[r.translatedPath] ?? r.translated,
+    }))
+    sessionStorage.setItem('translationResults', JSON.stringify(updatedResults))
 
-      const response = await fetch('/api/pr', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          owner: meta.owner,
-          repo: meta.repo,
-          defaultBranch: meta.defaultBranch ?? 'main',
-          targetLocale: meta.targetLocale,
-          files,
-        }),
-      })
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ error: 'Failed to create PR' }))
-        throw new Error(errorData.error || 'Failed to create PR')
-      }
-
-      const data = await response.json() as { pr: { url: string; number: number } }
-      sessionStorage.setItem('prResult', JSON.stringify(data.pr))
-      router.push(`/repos/${meta.owner}/${meta.repo}/pr`)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unknown error')
-      setIsSubmitting(false)
-    }
+    // Navigate to placement selection page
+    router.push(`/repos/${meta.owner}/${meta.repo}/placement`)
   }
 
   if (results.length === 0) {
@@ -111,9 +88,8 @@ export default function ReviewPage() {
           ))}
         </div>
         <div className="ml-auto flex items-center gap-3">
-          {error && <p className="text-destructive text-sm">{error}</p>}
-          <Button onClick={handleSubmit} disabled={isSubmitting}>
-            {isSubmitting ? <><Spinner className="mr-2" /> Creating PR...</> : 'Create Pull Request'}
+          <Button onClick={handleSubmit}>
+            Continue to Placement
           </Button>
         </div>
       </div>

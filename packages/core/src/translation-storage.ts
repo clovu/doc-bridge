@@ -13,6 +13,7 @@ export interface MultiLangPattern {
 export interface TranslationPlacement {
   targetPath: string
   createDirectory: boolean
+  pattern?: MultiLangPatternType
 }
 
 // Common language codes to detect
@@ -333,4 +334,36 @@ function isLangCode(str: string): boolean {
   return LANG_CODES.some(code =>
     str === code || str.startsWith(code + '-'),
   )
+}
+
+/**
+ * Returns all possible placement strategies for a file.
+ * Useful for providing users with alternative placement options.
+ */
+export function getAllPossiblePlacements(
+  originalPath: string,
+  targetLocale: string,
+): TranslationPlacement[] {
+  const placements: TranslationPlacement[] = []
+
+  // 1. i18n-subdir pattern
+  const i18nPlacement = placeInI18nSubdir(originalPath, targetLocale, 'i18n')
+  placements.push({ ...i18nPlacement, pattern: 'i18n-subdir' })
+
+  // 2. docs-subdir pattern
+  const parts = originalPath.split('/')
+  const firstDir = parts[0]
+  const docsBaseDir = DOCS_DIRS.includes(firstDir) ? firstDir : 'docs'
+  const docsPlacement = placeInDocsSubdir(originalPath, targetLocale, docsBaseDir)
+  placements.push({ ...docsPlacement, pattern: 'docs-subdir' })
+
+  // 3. lang-subdir pattern
+  const langPlacement = placeInLangSubdir(originalPath, targetLocale)
+  placements.push({ ...langPlacement, pattern: 'lang-subdir' })
+
+  // 4. root-suffix pattern
+  const suffixPlacement = placeWithRootSuffix(originalPath, targetLocale)
+  placements.push({ ...suffixPlacement, pattern: 'root-suffix' })
+
+  return placements
 }

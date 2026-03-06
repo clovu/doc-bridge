@@ -2,8 +2,9 @@ import { describe, it, expect } from 'vitest'
 import {
   detectMultiLangPattern,
   getTranslationPlacement,
+  getAllPossiblePlacements,
   type MultiLangPattern,
-  type TranslationPlacement,
+
 } from '../src/translation-storage'
 
 describe('detectMultiLangPattern', () => {
@@ -384,5 +385,69 @@ describe('getTranslationPlacement', () => {
 
       expect(placement.targetPath).toBe('README..md')
     })
+  })
+})
+
+describe('getAllPossiblePlacements', () => {
+  it('should return all 4 pattern placements for a file', () => {
+    const placements = getAllPossiblePlacements('docs/guide.md', 'zh')
+
+    expect(placements).toHaveLength(4)
+    expect(placements.map(p => p.pattern)).toEqual([
+      'i18n-subdir',
+      'docs-subdir',
+      'lang-subdir',
+      'root-suffix',
+    ])
+  })
+
+  it('should generate i18n-subdir placement', () => {
+    const placements = getAllPossiblePlacements('docs/guide.md', 'zh')
+    const i18nPlacement = placements.find(p => p.pattern === 'i18n-subdir')
+
+    expect(i18nPlacement?.targetPath).toBe('i18n/zh/docs/guide.md')
+  })
+
+  it('should generate docs-subdir placement', () => {
+    const placements = getAllPossiblePlacements('docs/guide.md', 'zh')
+    const docsPlacement = placements.find(p => p.pattern === 'docs-subdir')
+
+    expect(docsPlacement?.targetPath).toBe('docs/zh/guide.md')
+  })
+
+  it('should generate lang-subdir placement', () => {
+    const placements = getAllPossiblePlacements('docs/guide.md', 'zh')
+    const langPlacement = placements.find(p => p.pattern === 'lang-subdir')
+
+    expect(langPlacement?.targetPath).toBe('zh/docs/guide.md')
+  })
+
+  it('should generate root-suffix placement', () => {
+    const placements = getAllPossiblePlacements('docs/guide.md', 'zh')
+    const suffixPlacement = placements.find(p => p.pattern === 'root-suffix')
+
+    expect(suffixPlacement?.targetPath).toBe('docs/guide.zh.md')
+  })
+
+  it('should handle root-level files', () => {
+    const placements = getAllPossiblePlacements('README.md', 'fr')
+
+    expect(placements).toHaveLength(4)
+    expect(placements.find(p => p.pattern === 'root-suffix')?.targetPath).toBe('README.fr.md')
+    expect(placements.find(p => p.pattern === 'i18n-subdir')?.targetPath).toBe('i18n/fr/README.md')
+    expect(placements.find(p => p.pattern === 'lang-subdir')?.targetPath).toBe('fr/README.md')
+  })
+
+  it('should handle deeply nested files', () => {
+    const placements = getAllPossiblePlacements('docs/api/v2/endpoints.md', 'ja')
+
+    expect(placements.find(p => p.pattern === 'docs-subdir')?.targetPath).toBe('docs/ja/api/v2/endpoints.md')
+    expect(placements.find(p => p.pattern === 'root-suffix')?.targetPath).toBe('docs/api/v2/endpoints.ja.md')
+  })
+
+  it('should handle files without extensions', () => {
+    const placements = getAllPossiblePlacements('LICENSE', 'zh')
+
+    expect(placements.find(p => p.pattern === 'root-suffix')?.targetPath).toBe('LICENSE.zh')
   })
 })
