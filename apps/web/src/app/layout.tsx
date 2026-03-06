@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-import { NextIntlClientProvider } from 'next-intl'
-import { ThemeProvider } from 'next-themes'
 
 import './globals.css'
+import { ThemeProvider } from '@/components/theme-provider'
+import { NextIntlClientProvider } from 'next-intl'
 
 export const metadata: Metadata = {
   title: 'DocBridge',
