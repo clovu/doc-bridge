@@ -1,0 +1,51 @@
+{
+  "button": {
+    "about": "关于",
+    "back": "返回",
+    "go": "确定",
+    "home": "首页",
+    "toggle_dark": "切换深色模式",
+    "toggle_langs": "切换语言",
+    "back_home": "回到主页",
+    "issue_contact": "抓虫"
+  },
+  "not-found": {
+    "desc": "抱歉，我们找不到您要查找的页面。",
+    "title": "未找到页面"
+  },
+  "auth": {
+    "login": "登录",
+    "loginWithGitHub": "使用 GitHub 登录",
+    "loggingIn": "登录中..."
+  },
+  "repos": {
+    "title": "您的仓库",
+    "search": "搜索仓库...",
+    "select": "选择",
+    "import": "导入"
+  },
+  "scan": {
+    "title": "选择要翻译的文件",
+    "selectFiles": "选择要翻译的 Markdown 文件",
+    "noFiles": "该仓库中未找到 Markdown 文件",
+    "continue": "继续"
+  },
+  "translate": {
+    "title": "翻译设置",
+    "selectLanguages": "选择目标语言",
+    "translate": "翻译",
+    "translating": "翻译中..."
+  },
+  "review": {
+    "title": "审阅翻译",
+    "original": "原文",
+    "translated": "译文",
+    "submit": "创建 Pull Request"
+  },
+  "pr": {
+    "title": "创建 Pull Request",
+    "creating": "创建中...",
+    "success": "Pull Request 已创建！",
+    "viewPR": "查看 Pull Request"
+  }
+}

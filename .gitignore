@@ -14,11 +14,15 @@
 /coverage
 
 # next.js
-/.next/
+.next/
 /out/
 
 # production
 /build
+
+# monorepo
+apps/*/node_modules
+packages/*/node_modules
 
 # misc
 .DS_Store

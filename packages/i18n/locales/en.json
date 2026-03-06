@@ -1,0 +1,51 @@
+{
+  "button": {
+    "about": "About",
+    "back": "Back",
+    "go": "GO",
+    "home": "Home",
+    "toggle_dark": "Toggle dark mode",
+    "toggle_langs": "Change languages",
+    "back_home": "Go back home",
+    "issue_contact": "Contact support"
+  },
+  "not-found": {
+    "desc": "Sorry, we couldn't find the page you're looking for.",
+    "title": "Page not found"
+  },
+  "auth": {
+    "login": "Sign in",
+    "loginWithGitHub": "Sign in with GitHub",
+    "loggingIn": "Signing in..."
+  },
+  "repos": {
+    "title": "Your Repositories",
+    "search": "Search repositories...",
+    "select": "Select",
+    "import": "Import"
+  },
+  "scan": {
+    "title": "Select Files to Translate",
+    "selectFiles": "Choose markdown files to translate",
+    "noFiles": "No markdown files found in this repository",
+    "continue": "Continue"
+  },
+  "translate": {
+    "title": "Translation Settings",
+    "selectLanguages": "Select target language",
+    "translate": "Translate",
+    "translating": "Translating..."
+  },
+  "review": {
+    "title": "Review Translation",
+    "original": "Original",
+    "translated": "Translated",
+    "submit": "Create Pull Request"
+  },
+  "pr": {
+    "title": "Create Pull Request",
+    "creating": "Creating PR...",
+    "success": "Pull Request Created!",
+    "viewPR": "View Pull Request"
+  }
+}

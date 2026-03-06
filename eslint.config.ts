@@ -9,10 +9,10 @@ const eslintConfig = defineConfig([
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
-    '.next/**',
-    'out/**',
-    'build/**',
-    'next-env.d.ts',
+    '**/.next/**',
+    '**/out/**',
+    '**/build/**',
+    '**/next-env.d.ts',
   ]),
 
   {
@@ -21,6 +21,7 @@ const eslintConfig = defineConfig([
 
   {
     rules: {
+      '@next/next/no-html-link-for-pages': ['error', 'apps/web'],
       'react-compiler/react-compiler': 'error',
       'react/react-in-jsx-scope': 'off',
       semi: ['error', 'never'],

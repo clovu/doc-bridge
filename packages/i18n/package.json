@@ -1,0 +1,23 @@
+{
+  "name": "@docbridge/i18n",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@formatjs/intl-localematcher": "^0.8.1",
+    "glob": "^13.0.6",
+    "negotiator": "^1.0.0",
+    "next-intl": "^4.8.3"
+  },
+  "devDependencies": {
+    "@docbridge/config": "workspace:*",
+    "@types/negotiator": "^0.6.4",
+    "@types/node": "^25.3.3"
+  }
+}
