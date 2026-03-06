@@ -84,6 +84,21 @@ registerProvider({
 })
 
 registerProvider({
+  id: 'deepseek',
+  label: 'DeepSeek (OpenAI-compatible)',
+  fields: [
+    {
+      key: 'apiKey',
+      label: 'API Key',
+      required: true,
+      secret: true,
+      placeholder: 'sk-...',
+    },
+  ],
+  factory: (config, logger) => new OpenAITranslationProvider(config.apiKey!, 'deepseek-reasoner', 'https://api.deepseek.com', undefined, logger),
+})
+
+registerProvider({
   id: 'custom',
   label: 'Custom (OpenAI-compatible)',
   fields: [

@@ -48,6 +48,14 @@ const PROVIDERS: ProviderOption[] = [
     ],
   },
   {
+    id: 'deepseek',
+    label: 'DeepSeek',
+    fields: [
+      { key: 'apiKey', label: 'API Key', required: true, secret: true, placeholder: 'sk-...' },
+      { key: 'model', label: 'Model', required: false, secret: false, placeholder: 'deepseek-reasoner | deepseek-chat' },
+    ],
+  },
+  {
     id: 'custom',
     label: 'Custom (OpenAI-compatible)',
     fields: [
