@@ -56,6 +56,14 @@ const PROVIDERS: ProviderOption[] = [
     ],
   },
   {
+    id: 'xiaomi-mimo',
+    label: 'Xiaomi MIMO',
+    fields: [
+      { key: 'apiKey', label: 'API Key', required: true, secret: true, placeholder: 'sk-...' },
+      { key: 'model', label: 'Model', required: false, secret: false, placeholder: 'mimo-v2-flash' },
+    ],
+  },
+  {
     id: 'custom',
     label: 'Custom (OpenAI-compatible)',
     fields: [

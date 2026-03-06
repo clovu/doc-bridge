@@ -99,6 +99,28 @@ registerProvider({
 })
 
 registerProvider({
+  id: 'xiaomi-mimo',
+  label: 'Xiaomi MIMO',
+  fields: [
+    {
+      key: 'apiKey',
+      label: 'API Key',
+      required: true,
+      secret: true,
+      placeholder: 'sk-...',
+    },
+    {
+      key: 'model',
+      label: 'Model',
+      required: false,
+      secret: false,
+      placeholder: 'mimo-v2-flash',
+    },
+  ],
+  factory: (config, logger) => new OpenAITranslationProvider(config.apiKey!, config.model, 'https://api.xiaomimimo.com/v1', undefined, logger),
+})
+
+registerProvider({
   id: 'custom',
   label: 'Custom (OpenAI-compatible)',
   fields: [
