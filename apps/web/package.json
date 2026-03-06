@@ -7,7 +7,10 @@
     "dev": "next dev",
     "build": "pnpm type-check && next build",
     "start": "next start",
-    "type-check": "tsgo --noEmit"
+    "type-check": "tsgo --noEmit",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "catalog:",
@@ -37,13 +40,20 @@
     "@iconify-json/carbon": "catalog:",
     "@iconify/tailwind4": "catalog:",
     "@tailwindcss/postcss": "catalog:",
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/react": "catalog:",
+    "@testing-library/user-event": "catalog:",
     "@types/negotiator": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@typescript/native-preview": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "@vitest/ui": "catalog:",
     "babel-plugin-react-compiler": "catalog:",
     "eslint-plugin-react-compiler": "catalog:",
-    "tailwindcss": "catalog:"
+    "jsdom": "catalog:",
+    "tailwindcss": "catalog:",
+    "vitest": "catalog:"
   }
 }

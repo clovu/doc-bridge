@@ -12,12 +12,17 @@ catalog:
   '@iconify-json/carbon': ^1.2.19
   '@iconify/tailwind4': ^1.2.1
   '@tailwindcss/postcss': ^4.2.1
+  '@testing-library/jest-dom': ^6.6.3
+  '@testing-library/react': ^16.1.0
+  '@testing-library/user-event': ^14.5.2
   '@types/negotiator': ^0.6.4
   '@types/node': ^25.3.3
   '@types/react': ^19.2.14
   '@types/react-dom': ^19.2.3
   '@typescript/native-preview': 7.0.0-dev.20260303.1
   '@vercel/config': ^0.0.36
+  '@vitejs/plugin-react': ^4.3.4
+  '@vitest/ui': ^3.0.0
   babel-plugin-react-compiler: 1.0.0
   class-variance-authority: ^0.7.1
   clsx: ^2.1.1
@@ -25,6 +30,7 @@ catalog:
   eslint-config-next: 16.1.6
   eslint-plugin-pnpm: ^1.6.0
   eslint-plugin-react-compiler: 19.1.0-rc.2
+  jsdom: ^26.0.0
   lint-staged: ^16.3.1
   lucide-react: ^0.576.0
   negotiator: ^1.0.0

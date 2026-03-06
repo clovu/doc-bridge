@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { CreatePRButton } from '@/components/create-pr-button'
 import type { PathSuggestion } from '@docbridge/core'
 
 interface TranslationResult {
@@ -167,9 +168,7 @@ export default function PlacementPage() {
           <Button variant="outline" onClick={() => router.back()}>
             Back
           </Button>
-          <Button onClick={handleSubmit} disabled={isSubmitting}>
-            {isSubmitting ? <><Spinner className="mr-2" /> Creating PR...</> : 'Create Pull Request'}
-          </Button>
+          <CreatePRButton isSubmitting={isSubmitting} onClick={handleSubmit} />
         </div>
       </div>
 
