@@ -4,48 +4,165 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@anthropic-ai/sdk':
+      specifier: ^0.39.0
+      version: 0.39.0
+    '@base-ui/react':
+      specifier: ^1.2.0
+      version: 1.2.0
+    '@formatjs/intl-localematcher':
+      specifier: ^0.8.1
+      version: 0.8.1
+    '@iconify-json/carbon':
+      specifier: ^1.2.19
+      version: 1.2.19
+    '@iconify/tailwind4':
+      specifier: ^1.2.1
+      version: 1.2.1
+    '@tailwindcss/postcss':
+      specifier: ^4.2.1
+      version: 4.2.1
+    '@types/negotiator':
+      specifier: ^0.6.4
+      version: 0.6.4
+    '@types/node':
+      specifier: ^25.3.3
+      version: 25.3.3
+    '@types/react':
+      specifier: ^19.2.14
+      version: 19.2.14
+    '@types/react-dom':
+      specifier: ^19.2.3
+      version: 19.2.3
+    '@typescript/native-preview':
+      specifier: 7.0.0-dev.20260303.1
+      version: 7.0.0-dev.20260303.1
+    '@vercel/config':
+      specifier: ^0.0.36
+      version: 0.0.36
+    babel-plugin-react-compiler:
+      specifier: 1.0.0
+      version: 1.0.0
+    class-variance-authority:
+      specifier: ^0.7.1
+      version: 0.7.1
+    clsx:
+      specifier: ^2.1.1
+      version: 2.1.1
+    eslint:
+      specifier: ^9.0.0
+      version: 9.39.3
+    eslint-config-next:
+      specifier: 16.1.6
+      version: 16.1.6
+    eslint-plugin-pnpm:
+      specifier: ^1.6.0
+      version: 1.6.0
+    eslint-plugin-react-compiler:
+      specifier: 19.1.0-rc.2
+      version: 19.1.0-rc.2
+    glob:
+      specifier: ^13.0.6
+      version: 13.0.6
+    lint-staged:
+      specifier: ^16.3.1
+      version: 16.3.1
+    lucide-react:
+      specifier: ^0.576.0
+      version: 0.576.0
+    negotiator:
+      specifier: ^1.0.0
+      version: 1.0.0
+    next:
+      specifier: 16.1.6
+      version: 16.1.6
+    next-intl:
+      specifier: ^4.8.3
+      version: 4.8.3
+    next-themes:
+      specifier: ^0.4.6
+      version: 0.4.6
+    octokit:
+      specifier: ^5.0.5
+      version: 5.0.5
+    openai:
+      specifier: ^6.27.0
+      version: 6.27.0
+    radix-ui:
+      specifier: ^1.4.3
+      version: 1.4.3
+    react:
+      specifier: 19.2.4
+      version: 19.2.4
+    react-dom:
+      specifier: 19.2.4
+      version: 19.2.4
+    shadcn:
+      specifier: ^3.8.5
+      version: 3.8.5
+    simple-git-hooks:
+      specifier: ^2.13.1
+      version: 2.13.1
+    tailwind-merge:
+      specifier: ^3.5.0
+      version: 3.5.0
+    tailwindcss:
+      specifier: ^4.2.1
+      version: 4.2.1
+    tw-animate-css:
+      specifier: ^1.4.0
+      version: 1.4.0
+    typescript:
+      specifier: ^5.9.3
+      version: 5.9.3
+    vitest:
+      specifier: ^3.0.0
+      version: 3.2.4
+
 importers:
 
   .:
     devDependencies:
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260303.1
+        specifier: 'catalog:'
         version: 7.0.0-dev.20260303.1
       '@vercel/config':
-        specifier: ^0.0.36
+        specifier: 'catalog:'
         version: 0.0.36
       eslint:
-        specifier: ^9.0.0
+        specifier: 'catalog:'
         version: 9.39.3(jiti@2.6.1)
       eslint-config-next:
-        specifier: 16.1.6
+        specifier: 'catalog:'
         version: 16.1.6(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3)
       eslint-plugin-pnpm:
-        specifier: ^1.6.0
+        specifier: 'catalog:'
         version: 1.6.0(eslint@9.39.3(jiti@2.6.1))
       eslint-plugin-react-compiler:
-        specifier: 19.1.0-rc.2
+        specifier: 'catalog:'
         version: 19.1.0-rc.2(eslint@9.39.3(jiti@2.6.1))
       lint-staged:
-        specifier: ^16.3.1
+        specifier: 'catalog:'
         version: 16.3.1
       simple-git-hooks:
-        specifier: ^2.13.1
+        specifier: 'catalog:'
         version: 2.13.1
       typescript:
-        specifier: ^5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vitest:
-        specifier: ^3.0.0
+        specifier: 'catalog:'
         version: 3.2.4(@types/node@25.3.3)(jiti@2.6.1)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.3)(typescript@5.9.3))(yaml@2.8.2)
 
   apps/web:
     dependencies:
       '@anthropic-ai/sdk':
-        specifier: ^0.39.0
+        specifier: 'catalog:'
         version: 0.39.0
       '@base-ui/react':
-        specifier: ^1.2.0
+        specifier: 'catalog:'
         version: 1.2.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docbridge/ai':
         specifier: workspace:0.0.0
@@ -60,105 +177,105 @@ importers:
         specifier: workspace:0.0.0
         version: link:../../packages/i18n
       '@formatjs/intl-localematcher':
-        specifier: ^0.8.1
+        specifier: 'catalog:'
         version: 0.8.1
       class-variance-authority:
-        specifier: ^0.7.1
+        specifier: 'catalog:'
         version: 0.7.1
       clsx:
-        specifier: ^2.1.1
+        specifier: 'catalog:'
         version: 2.1.1
       lucide-react:
-        specifier: ^0.576.0
+        specifier: 'catalog:'
         version: 0.576.0(react@19.2.4)
       negotiator:
-        specifier: ^1.0.0
+        specifier: 'catalog:'
         version: 1.0.0
       next:
-        specifier: 16.1.6
+        specifier: 'catalog:'
         version: 16.1.6(@babel/core@7.29.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       next-intl:
-        specifier: ^4.8.3
-        version: 4.8.3(next@16.1.6(@babel/core@7.29.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+        specifier: 'catalog:'
+        version: 4.8.3(next@16.1.6(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
       next-themes:
-        specifier: ^0.4.6
+        specifier: 'catalog:'
         version: 0.4.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       octokit:
-        specifier: ^5.0.5
+        specifier: 'catalog:'
         version: 5.0.5
       radix-ui:
-        specifier: ^1.4.3
+        specifier: 'catalog:'
         version: 1.4.3(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react:
-        specifier: 19.2.4
+        specifier: 'catalog:'
         version: 19.2.4
       react-dom:
-        specifier: 19.2.4
+        specifier: 'catalog:'
         version: 19.2.4(react@19.2.4)
       shadcn:
-        specifier: ^3.8.5
+        specifier: 'catalog:'
         version: 3.8.5(@types/node@25.3.3)(typescript@5.9.3)
       tailwind-merge:
-        specifier: ^3.5.0
+        specifier: 'catalog:'
         version: 3.5.0
       tw-animate-css:
-        specifier: ^1.4.0
+        specifier: 'catalog:'
         version: 1.4.0
     devDependencies:
       '@docbridge/config':
         specifier: workspace:0.0.0
         version: link:../../packages/config
       '@iconify-json/carbon':
-        specifier: ^1.2.19
+        specifier: 'catalog:'
         version: 1.2.19
       '@iconify/tailwind4':
-        specifier: ^1.2.1
+        specifier: 'catalog:'
         version: 1.2.1(tailwindcss@4.2.1)
       '@tailwindcss/postcss':
-        specifier: ^4.2.1
+        specifier: 'catalog:'
         version: 4.2.1
       '@types/negotiator':
-        specifier: ^0.6.4
+        specifier: 'catalog:'
         version: 0.6.4
       '@types/node':
-        specifier: ^25.3.3
+        specifier: 'catalog:'
         version: 25.3.3
       '@types/react':
-        specifier: ^19.2.14
+        specifier: 'catalog:'
         version: 19.2.14
       '@types/react-dom':
-        specifier: ^19.2.3
+        specifier: 'catalog:'
         version: 19.2.3(@types/react@19.2.14)
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260303.1
+        specifier: 'catalog:'
         version: 7.0.0-dev.20260303.1
       babel-plugin-react-compiler:
-        specifier: 1.0.0
+        specifier: 'catalog:'
         version: 1.0.0
       eslint-plugin-react-compiler:
-        specifier: 19.1.0-rc.2
+        specifier: 'catalog:'
         version: 19.1.0-rc.2(eslint@9.39.3(jiti@2.6.1))
       tailwindcss:
-        specifier: ^4.2.1
+        specifier: 'catalog:'
         version: 4.2.1
 
   packages/ai:
     dependencies:
       '@anthropic-ai/sdk':
-        specifier: ^0.39.0
+        specifier: 'catalog:'
         version: 0.39.0
       '@docbridge/core':
         specifier: workspace:0.0.0
         version: link:../core
       openai:
-        specifier: ^6.27.0
+        specifier: 'catalog:'
         version: 6.27.0(zod@4.3.6)
     devDependencies:
       '@docbridge/config':
         specifier: workspace:0.0.0
         version: link:../config
       vitest:
-        specifier: ^3.0.0
+        specifier: 'catalog:'
         version: 3.2.4(@types/node@25.3.3)(jiti@2.6.1)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.3)(typescript@5.9.3))(yaml@2.8.2)
 
   packages/config: {}
@@ -169,45 +286,45 @@ importers:
         specifier: workspace:0.0.0
         version: link:../config
       vitest:
-        specifier: ^3.0.0
+        specifier: 'catalog:'
         version: 3.2.4(@types/node@25.3.3)(jiti@2.6.1)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.3)(typescript@5.9.3))(yaml@2.8.2)
 
   packages/github:
     dependencies:
       octokit:
-        specifier: ^5.0.5
+        specifier: 'catalog:'
         version: 5.0.5
     devDependencies:
       '@docbridge/config':
         specifier: workspace:0.0.0
         version: link:../config
       vitest:
-        specifier: ^3.0.0
+        specifier: 'catalog:'
         version: 3.2.4(@types/node@25.3.3)(jiti@2.6.1)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.3)(typescript@5.9.3))(yaml@2.8.2)
 
   packages/i18n:
     dependencies:
       '@formatjs/intl-localematcher':
-        specifier: ^0.8.1
+        specifier: 'catalog:'
         version: 0.8.1
       glob:
-        specifier: ^13.0.6
+        specifier: 'catalog:'
         version: 13.0.6
       negotiator:
-        specifier: ^1.0.0
+        specifier: 'catalog:'
         version: 1.0.0
       next-intl:
-        specifier: ^4.8.3
-        version: 4.8.3(next@16.1.6(@babel/core@7.29.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+        specifier: 'catalog:'
+        version: 4.8.3(next@16.1.6(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
     devDependencies:
       '@docbridge/config':
         specifier: workspace:0.0.0
         version: link:../config
       '@types/negotiator':
-        specifier: ^0.6.4
+        specifier: 'catalog:'
         version: 0.6.4
       '@types/node':
-        specifier: ^25.3.3
+        specifier: 'catalog:'
         version: 25.3.3
 
 packages:
@@ -7976,8 +8093,8 @@ snapshots:
       '@next/eslint-plugin-next': 16.1.6
       eslint: 9.39.3(jiti@2.6.1)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.3(jiti@2.6.1))
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.3(jiti@2.6.1))
+      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.3(jiti@2.6.1))
       eslint-plugin-react: 7.37.5(eslint@9.39.3(jiti@2.6.1))
       eslint-plugin-react-hooks: 7.0.1(eslint@9.39.3(jiti@2.6.1))
@@ -7999,7 +8116,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.3(jiti@2.6.1)):
+  eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1)):
     dependencies:
       '@nolyfill/is-core-module': 1.0.39
       debug: 4.4.3
@@ -8010,22 +8127,22 @@ snapshots:
       tinyglobby: 0.2.15
       unrs-resolver: 1.11.1
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.3(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1))
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.12.1(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.3(jiti@2.6.1)):
+  eslint-module-utils@2.12.1(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1)):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
       '@typescript-eslint/parser': 8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3)
       eslint: 9.39.3(jiti@2.6.1)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.3(jiti@2.6.1))
+      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1))
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.3(jiti@2.6.1)):
+  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1)):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9
@@ -8036,7 +8153,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 9.39.3(jiti@2.6.1)
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.1(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.3(jiti@2.6.1))
+      eslint-module-utils: 2.12.1(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1))
       hasown: 2.0.2
       is-core-module: 2.16.1
       is-glob: 4.0.3
@@ -9024,7 +9141,7 @@ snapshots:
 
   next-intl-swc-plugin-extractor@4.8.3: {}
 
-  next-intl@4.8.3(next@16.1.6(@babel/core@7.29.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3):
+  next-intl@4.8.3(next@16.1.6(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3):
     dependencies:
       '@formatjs/intl-localematcher': 0.8.1
       '@parcel/watcher': 2.5.6
