@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import { listUserRepos } from '@docbridge/github'
 import { Toolbar } from '@/components/toolbar'
 import { RepoList } from '@/components/repo-list'
-import { useTranslations } from 'next-intl'
+import { ReposPageTitle } from '@/components/repos-page-title'
 
 export default async function ReposPage() {
   const store = await cookies()
@@ -21,9 +21,4 @@ export default async function ReposPage() {
       </div>
     </main>
   )
-}
-
-const ReposPageTitle = () => {
-  const t = useTranslations()
-  return <h1 className="text-2xl font-semibold mb-6">{t('repos.title')}</h1>
 }
