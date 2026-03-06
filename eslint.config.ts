@@ -2,10 +2,13 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 import nextVitals from 'eslint-config-next/core-web-vitals'
 import nextTs from 'eslint-config-next/typescript'
 import reactCompiler from 'eslint-plugin-react-compiler'
+import { configs } from 'eslint-plugin-pnpm'
 
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  ...configs.json,
+  ...configs.yaml,
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:

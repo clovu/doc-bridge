@@ -10,14 +10,14 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@formatjs/intl-localematcher": "^0.8.1",
-    "glob": "^13.0.6",
-    "negotiator": "^1.0.0",
-    "next-intl": "^4.8.3"
+    "@formatjs/intl-localematcher": "catalog:",
+    "glob": "catalog:",
+    "negotiator": "catalog:",
+    "next-intl": "catalog:"
   },
   "devDependencies": {
-    "@docbridge/config": "workspace:*",
-    "@types/negotiator": "^0.6.4",
-    "@types/node": "^25.3.3"
+    "@docbridge/config": "workspace:0.0.0",
+    "@types/negotiator": "catalog:",
+    "@types/node": "catalog:"
   }
 }

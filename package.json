@@ -26,15 +26,16 @@
     "node": ">=23.6.0"
   },
   "devDependencies": {
-    "@typescript/native-preview": "7.0.0-dev.20260303.1",
-    "@vercel/config": "^0.0.36",
-    "eslint": "^9.0.0",
-    "eslint-config-next": "16.1.6",
-    "eslint-plugin-react-compiler": "19.1.0-rc.2",
-    "lint-staged": "^16.3.1",
-    "simple-git-hooks": "^2.13.1",
-    "typescript": "^5.9.3",
-    "vitest": "^3.0.0"
+    "@typescript/native-preview": "catalog:",
+    "@vercel/config": "catalog:",
+    "eslint": "catalog:",
+    "eslint-config-next": "catalog:",
+    "eslint-plugin-pnpm": "catalog:",
+    "eslint-plugin-react-compiler": "catalog:",
+    "lint-staged": "catalog:",
+    "simple-git-hooks": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm type-check && pnpm lint-staged --config lint-staged.config.ts"
