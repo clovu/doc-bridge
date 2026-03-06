@@ -23,10 +23,26 @@ export async function createBranch(
   sha: string,
 ): Promise<void> {
   const octokit = new Octokit({ auth: token })
-  await octokit.rest.git.createRef({
-    owner,
-    repo,
-    ref: `refs/heads/${branchName}`,
-    sha,
-  })
+
+  try {
+    await octokit.rest.git.createRef({
+      owner,
+      repo,
+      ref: `refs/heads/${branchName}`,
+      sha,
+    })
+  } catch (error: unknown) {
+    // If branch already exists (422), update it to the new SHA
+    if (error && typeof error === 'object' && 'status' in error && error.status === 422) {
+      await octokit.rest.git.updateRef({
+        owner,
+        repo,
+        ref: `heads/${branchName}`,
+        sha,
+        force: true,
+      })
+      return
+    }
+    throw error
+  }
 }

@@ -152,7 +152,7 @@ describe('ClaudeTranslationProvider', () => {
       const provider = new ClaudeTranslationProvider('test-key', undefined, mockLogger)
       await provider.translate({ segments: ['Hello'], sourceLocale: 'en', targetLocale: 'es' })
 
-      expect(logs).toHaveLength(2)
+      expect(logs).toHaveLength(3)
       expect(logs[0]).toMatchObject({
         level: 'info',
         message: 'ClaudeTranslationProvider: API call',
@@ -162,6 +162,10 @@ describe('ClaudeTranslationProvider', () => {
         segmentCount: 1,
         sourceLocale: 'en',
         targetLocale: 'es',
+      })
+      expect(logs[1]).toMatchObject({
+        level: 'debug',
+        message: 'ClaudeTranslationProvider: raw response',
       })
     })
 
@@ -181,12 +185,12 @@ describe('ClaudeTranslationProvider', () => {
         targetLocale: 'es',
       })
 
-      expect(logs).toHaveLength(2)
-      expect(logs[1]).toMatchObject({
+      expect(logs).toHaveLength(3)
+      expect(logs[2]).toMatchObject({
         level: 'info',
         message: 'ClaudeTranslationProvider: response received',
       })
-      expect(logs[1].data).toMatchObject({
+      expect(logs[2].data).toMatchObject({
         translatedCount: 2,
       })
     })

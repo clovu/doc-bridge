@@ -27,48 +27,59 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   const token = request.cookies.get('gh_token')?.value
   if (!token) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const body = await request.json() as PRBody
-  const { owner, repo, defaultBranch, targetLocale, files } = body
+  try {
+    const body = await request.json() as PRBody
+    const { owner, repo, defaultBranch, targetLocale, files } = body
 
-  // 1. Get authenticated user
-  const user = await getAuthenticatedUser(token)
+    // 1. Get authenticated user
+    const user = await getAuthenticatedUser(token)
 
-  // 2. Fork the repository
-  const fork = await forkRepo(token, owner, repo)
+    // 2. Fork the repository
+    const fork = await forkRepo(token, owner, repo)
 
-  // 3. Get the default branch SHA on the fork
-  const sha = await getDefaultBranchSha(token, fork.owner, fork.repo, defaultBranch)
+    // 3. Get the default branch SHA on the fork
+    const sha = await getDefaultBranchSha(token, fork.owner, fork.repo, defaultBranch)
 
-  // 4. Create translation branch
-  const branchName = `docbridge/translate-en-${targetLocale}`
-  await createBranch(token, fork.owner, fork.repo, branchName, sha)
+    // 4. Create translation branch
+    const branchName = `docbridge/translate-en-${targetLocale}`
+    await createBranch(token, fork.owner, fork.repo, branchName, sha)
 
-  // 5. Commit each translated file
-  for (const file of files) {
-    const commitMessage = `docs: add ${targetLocale} translation of ${file.originalPath}`
-    await createOrUpdateFile(
-      token,
-      fork.owner,
-      fork.repo,
-      file.translatedPath,
-      file.content,
-      commitMessage,
-      branchName,
+    // 5. Commit each translated file
+    for (const file of files) {
+      const commitMessage = `docs: add ${targetLocale} translation of ${file.originalPath}`
+      await createOrUpdateFile(
+        token,
+        fork.owner,
+        fork.repo,
+        file.translatedPath,
+        file.content,
+        commitMessage,
+        branchName,
+      )
+    }
+
+    // 6. Create pull request
+    const prBody = buildPRBody(
+      targetLocale,
+      files.map(f => ({ original: f.originalPath, translated: f.translatedPath })),
     )
+
+    const pr = await createPullRequest(token, owner, repo, {
+      title: `[DocBridge] Add ${targetLocale} translations`,
+      body: prBody,
+      head: `${fork.owner}:${branchName}`,
+      base: defaultBranch,
+    })
+
+    return NextResponse.json({ pr, author: user.login })
+  } catch (error: unknown) {
+    console.error('PR creation failed:', error)
+    const message = error && typeof error === 'object' && 'message' in error && typeof error.message === 'string'
+      ? error.message
+      : 'Failed to create pull request'
+    const status = error && typeof error === 'object' && 'status' in error && typeof error.status === 'number'
+      ? error.status
+      : 500
+    return NextResponse.json({ error: message }, { status })
   }
-
-  // 6. Create pull request
-  const prBody = buildPRBody(
-    targetLocale,
-    files.map(f => ({ original: f.originalPath, translated: f.translatedPath })),
-  )
-
-  const pr = await createPullRequest(token, owner, repo, {
-    title: `[DocBridge] Add ${targetLocale} translations`,
-    body: prBody,
-    head: `${fork.owner}:${branchName}`,
-    base: defaultBranch,
-  })
-
-  return NextResponse.json({ pr, author: user.login })
 }

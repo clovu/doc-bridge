@@ -65,18 +65,38 @@ Rules:
       .map(block => block.text)
       .join('')
 
+    this.logger?.debug('ClaudeTranslationProvider: raw response', {
+      textLength: text.length,
+      textPreview: text.substring(0, 200),
+    })
+
     let translated: string[]
     try {
       translated = extractJSON(text)
     } catch (err) {
+      this.logger?.error('ClaudeTranslationProvider: JSON extraction failed', {
+        error: err instanceof Error ? err.message : String(err),
+        textPreview: text.substring(0, 200),
+      })
       throw new Error(
         `ClaudeTranslationProvider: ${err instanceof Error ? err.message : String(err)}: ${text.slice(0, 100)}`,
       )
     }
 
     if (translated.length !== segments.length) {
+      const errorDetails = {
+        expected: segments.length,
+        received: translated.length,
+        segments: segments.map((s, i) => `[${i}] ${s.substring(0, 50)}${s.length > 50 ? '...' : ''}`),
+        translations: translated.map((t, i) => `[${i}] ${t.substring(0, 50)}${t.length > 50 ? '...' : ''}`),
+      }
+
+      this.logger?.error('ClaudeTranslationProvider: translation count mismatch', errorDetails)
+
       throw new Error(
-        `ClaudeTranslationProvider: expected ${segments.length} translations, got ${translated.length}`,
+        `ClaudeTranslationProvider: expected ${segments.length} translations, got ${translated.length}. ` +
+        `Segments: ${JSON.stringify(errorDetails.segments)}. ` +
+        `Translations: ${JSON.stringify(errorDetails.translations)}`,
       )
     }
 

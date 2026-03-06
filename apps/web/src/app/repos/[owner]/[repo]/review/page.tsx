@@ -71,7 +71,10 @@ export default function ReviewPage() {
         }),
       })
 
-      if (!response.ok) throw new Error('Failed to create PR')
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ error: 'Failed to create PR' }))
+        throw new Error(errorData.error || 'Failed to create PR')
+      }
 
       const data = await response.json() as { pr: { url: string; number: number } }
       sessionStorage.setItem('prResult', JSON.stringify(data.pr))

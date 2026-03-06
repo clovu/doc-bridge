@@ -214,7 +214,7 @@ describe('OpenAITranslationProvider', () => {
       const provider = new OpenAITranslationProvider('sk-test', 'gpt-4', 'https://api.openai.com/v1', undefined, mockLogger)
       await provider.translate({ segments: ['Hello'], sourceLocale: 'en', targetLocale: 'es' })
 
-      expect(logs).toHaveLength(2)
+      expect(logs).toHaveLength(3)
       expect(logs[0]).toMatchObject({
         level: 'info',
         message: 'OpenAITranslationProvider: API call',
@@ -225,6 +225,10 @@ describe('OpenAITranslationProvider', () => {
         segmentCount: 1,
         sourceLocale: 'en',
         targetLocale: 'es',
+      })
+      expect(logs[1]).toMatchObject({
+        level: 'debug',
+        message: 'OpenAITranslationProvider: raw response',
       })
     })
 
@@ -246,12 +250,12 @@ describe('OpenAITranslationProvider', () => {
         targetLocale: 'es',
       })
 
-      expect(logs).toHaveLength(2)
-      expect(logs[1]).toMatchObject({
+      expect(logs).toHaveLength(3)
+      expect(logs[2]).toMatchObject({
         level: 'info',
         message: 'OpenAITranslationProvider: response received',
       })
-      expect(logs[1].data).toMatchObject({
+      expect(logs[2].data).toMatchObject({
         translatedCount: 2,
       })
     })

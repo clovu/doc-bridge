@@ -88,18 +88,38 @@ Rules:
       throw new Error('OpenAITranslationProvider: empty response content')
     }
 
+    this.logger?.debug('OpenAITranslationProvider: raw response', {
+      contentLength: content.length,
+      contentPreview: content.substring(0, 200),
+    })
+
     let translated: string[]
     try {
       translated = extractJSON(content)
     } catch (err) {
+      this.logger?.error('OpenAITranslationProvider: JSON extraction failed', {
+        error: err instanceof Error ? err.message : String(err),
+        contentPreview: content.substring(0, 200),
+      })
       throw new Error(
         `OpenAITranslationProvider: ${err instanceof Error ? err.message : String(err)}: ${content.slice(0, 100)}`,
       )
     }
 
     if (translated.length !== segments.length) {
+      const errorDetails = {
+        expected: segments.length,
+        received: translated.length,
+        segments: segments.map((s, i) => `[${i}] ${s.substring(0, 50)}${s.length > 50 ? '...' : ''}`),
+        translations: translated.map((t, i) => `[${i}] ${t.substring(0, 50)}${t.length > 50 ? '...' : ''}`),
+      }
+
+      this.logger?.error('OpenAITranslationProvider: translation count mismatch', errorDetails)
+
       throw new Error(
-        `OpenAITranslationProvider: expected ${segments.length} translations, got ${translated.length}`,
+        `OpenAITranslationProvider: expected ${segments.length} translations, got ${translated.length}. ` +
+        `Segments: ${JSON.stringify(errorDetails.segments)}. ` +
+        `Translations: ${JSON.stringify(errorDetails.translations)}`,
       )
     }
 
